@@ -1,2 +1,2 @@
-# tim.abiok
+# timabiok.com
 personal branding website
