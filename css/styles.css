@@ -12,39 +12,23 @@ html {
 }
 
 body {
-/* font-family: 'Open Sans', sans-serif; */
-/* font-family: system-ui; */
-/* font-family: inherit; */
  margin: 0;
 }
 
-/* h3 {
-  color: blue;
-} */
-
-
 h1, h2 {
-  font-family: 'Indie Flower',serif;
+  /* font-family: 'Indie Flower',serif; */
   font-weight: 400;
-  color: red;
-
+  color: white;
 }
+
+h1, h3 {
+  margin: 0;
+}
+
 h2 {
-  font-size:40px;
+  /* font-size:20px; */
   background: #E2C044;
-
-  /* line-height:150% */
   margin-top: 0;
-}
-h1 {
-  font-size:70px;
-  /* line-height:150% */
-  margin: 0;
-}
-h3 {
-  /* font-family:'',monospace; */
-  margin: 0;
-  color: #3C474B;
 }
 
 a {
@@ -57,14 +41,6 @@ a:hover {
 .work {
   background: #F5F5F5;
 }
-h3 ~ p {
-  margin:0;
-}
-
-.work .col-wide {
-
-  color:#393E41;
-}
 
 .content-wrap {
   max-width: 950px;
@@ -74,15 +50,15 @@ h3 ~ p {
 }
 
 .col-narrow {
-  width: 30%;
+  width: 25%;
   float:left;
-  min-height: 175px;
+  /* min-height: 175px; */
 }
 .col-wide {
-  width: 70%;
+  width: 75%;
   float: left;
   padding-left:20px;
-  min-height: 175px;
+  /* min-height: 175px; */
 }
 /* Education */
 .education {
@@ -90,52 +66,26 @@ h3 ~ p {
 }
 
 .education div h3, .education div p  {
-  /* color: red; */
-
 }
 
-/* .education .content-wrap {
-  color: red;
-} */
 /* Header & Footer */
 
 header, footer {
   background:#2B2D42;
-  /* background-image: url(/Users/tim_abiok/Desktop/EDUCATE/CSS-RESUME/images/jay.jpg); */
   color:#8D99AE;
   margin:0;
 }
 
-h1 ~ h2 {
-  margin:0;
-}
-
-h2 ~ p {
-  margin:0;
-}
-
-h2 ~ h3 {
-  margin:0;
-}
-
-h1 ~ h3 {
+h1 ~ h2, h2 ~ p, h2 ~ h3, h1 ~ h3, h3 ~ p {
   margin:0;
 }
 /* header */
-
 .profile-img {
-  /* width: 300px; */
   border-radius: 50%;
-  /* float:left; */
-  /* overflow: auto; */
-  /* margin-right: 30px; */
 }
-/* header {
-  text-align: center; */
-}
+
 header h1, header h2 {
-  /* background-color: #E2C044; */
-  color:#EDF2F4;
+  color:white;
 }
 /* footer */
 footer {
