@@ -3,7 +3,7 @@ name: Deploy Static Website to S3 with CloudFront
 on:
   push:
     branches:
-      - main  # deploy only on main branch
+      - master  # deploy only on master branch
 
 # env:
 #   # Setting an environment variable with the value of a configuration variable
