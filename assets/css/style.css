@@ -9,7 +9,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Inconsolata", monospace;
+  font-family: "Funnel Sans", sans-serif;
   color: #0d1e2d;
 }
 
@@ -22,9 +22,21 @@ a:hover {
   color: #000;
 }
 
-h1, h2, h3, h4, h5, h6, .font-heading {
+/* h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: "Raleway", sans-serif;
+} */
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: "Funnel Sans", sans-serif;
 }
+
+
+/* .funnel-sans-h {
+  font-family: "Funnel Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+} */
 
 .section {
   padding: 7rem 0;
