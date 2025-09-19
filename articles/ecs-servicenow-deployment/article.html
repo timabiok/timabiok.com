@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Medium Style Doc</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Source Serif 4 (body/headings), Inter (UI/meta), Fira Mono (code) -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&family=Inter:wght@400;600&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Source Serif 4', 'Georgia', Cambria, 'Times New Roman', Times, serif;
+      background: #fafafa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 0.8em 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.03);
+    }
+    .navbar-container {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+    .navbar a {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      color: #00ab6c;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1em;
+      padding: 0.3em 0.7em;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .navbar a:hover {
+      background: #f4f4f4;
+    }
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 48px 32px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+      border-radius: 8px;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Source Serif 4', 'Georgia', Cambria, 'Times New Roman', Times, serif;
+      font-weight: 700;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      line-height: 1.2;
+    }
+    h1 {
+      font-size: 2.6em;
+      margin-top: 0;
+    }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.4em; }
+    h4 { font-size: 1.1em; }
+    p, li, blockquote, pre, code {
+      font-family: 'Source Serif 4', 'Georgia', Cambria, 'Times New Roman', Times, serif;
+    }
+    .meta, em, small {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.98em;
+      color: #757575;
+    }
+    p {
+      font-size: 1.18em;
+      line-height: 1.7;
+      margin: 1.2em 0;
+    }
+    blockquote {
+      border-left: 4px solid #00ab6c;
+      background: #f4f4f4;
+      margin: 1.5em 0;
+      padding: 1em 1.5em;
+      font-style: italic;
+      color: #444;
+    }
+    pre {
+      background: #f6f8fa;
+      border-radius: 6px;
+      padding: 1em;
+      overflow-x: auto;
+      font-size: 1em;
+      margin: 1.5em 0;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    }
+    code {
+      background: #f6f8fa;
+      border-radius: 4px;
+      padding: 0.2em 0.4em;
+      font-size: 1em;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 6px;
+      margin: 1.5em 0;
+      display: block;
+    }
+    ul, ol {
+      margin: 1.2em 0 1.2em 2em;
+      font-size: 1.1em;
+    }
+    a {
+      color: #00ab6c;
+      text-decoration: none;
+      border-bottom: 1px solid #00ab6c33;
+      transition: border 0.2s;
+    }
+    a:hover {
+      border-bottom: 2px solid #00ab6c;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 2.5em 0;
+    }
+    @media (max-width: 800px) {
+      .navbar-container, .container {
+        padding: 24px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/index.html" title="Back to Index">&larr; Back to Index</a>
+    </div>
+  </nav>
+  <div class="container" id="content"></div>
+  <script>
+    // JSON structure for the article content
+    const articleContent = {
+      title: "Medium Style Article Title",
+      meta: "By Author Name · Sep 19, 2025",
+      sections: [
+        { type: "p", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod euismod nisi nisi euismod." },
+        { type: "h2", text: "Section Heading" },
+        { type: "p", text: "This is a paragraph with <a href='#'>a link</a> and some <code>inline code</code>." },
+        { type: "blockquote", text: "This is a blockquote, styled like Medium." },
+        { type: "pre", text: "// Example code block\nfunction helloWorld() {\n  console.log(\"Hello, world!\");\n}" },
+        { type: "ul", items: ["First point", "Second point"] },
+        { type: "hr" },
+        { type: "p", text: "End of the article." }
+      ]
+    };
+
+    // Render function for the JSON content
+    function renderContent(content) {
+      let html = `<h1>${content.title}</h1>`;
+      html += `<p class="meta"><em>${content.meta}</em></p>`;
+      content.sections.forEach(section => {
+        if (section.type === "p") html += `<p>${section.text}</p>`;
+        else if (section.type === "h2") html += `<h2>${section.text}</h2>`;
+        else if (section.type === "h3") html += `<h3>${section.text}</h3>`;
+        else if (section.type === "blockquote") html += `<blockquote>${section.text}</blockquote>`;
+        else if (section.type === "pre") html += `<pre><code>${section.text}</code></pre>`;
+        else if (section.type === "ul") html += `<ul>${section.items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+        else if (section.type === "ol") html += `<ol>${section.items.map(item => `<li>${item}</li>`).join('')}</ol>`;
+        else if (section.type === "hr") html += `<hr>`;
+      });
+      document.getElementById('content').innerHTML = html;
+    }
+
+    renderContent(articleContent);
+  </script>
+</body>
+</html>

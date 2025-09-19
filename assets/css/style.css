@@ -11,6 +11,17 @@
 body {
   font-family: "Funnel Sans", sans-serif;
   color: #0d1e2d;
+  font-optical-sizing: auto;
+  font-weight: 300;
+}
+
+p {
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.125rem;      /* ~18px */
+  line-height: 1.7;         /* airy like Medium */
+  letter-spacing: 0.01rem;  /* subtle */
 }
 
 a {
@@ -22,25 +33,22 @@ a:hover {
   color: #000;
 }
 
-/* h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: "Raleway", sans-serif;
-} */
-
 h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: "Funnel Sans", sans-serif;
-}
-
-
-/* .funnel-sans-h {
-  font-family: "Funnel Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: <weight>;
   font-style: normal;
-} */
+}
 
 .section {
   padding: 7rem 0;
 }
+
+.boldonse-regular {
+  font-family: "Boldonse", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 .filters a {
   text-decoration: none;
