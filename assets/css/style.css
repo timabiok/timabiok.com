@@ -44,10 +44,11 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 .boldonse-regular {
-  font-family: "Funnel Sans", sans-serif;
-  font-style: bold;
-  font-weight: 800;
+  font-family: "Boldonse", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
+
 
 .filters a {
   text-decoration: none;
