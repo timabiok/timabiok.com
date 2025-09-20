@@ -34,6 +34,14 @@ jobs:
             --exclude ".git/*" \
             --exclude ".github/*"
 
+      # Step 3: Deploy to alternate S3
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./ s3://resume.${{ vars.S3_BUCKET_NAME }} \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*"
+
       # Step 4: Invalidate CloudFront cache
       - name: Invalidate CloudFront
         run: |
