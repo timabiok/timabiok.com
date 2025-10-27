@@ -90,6 +90,29 @@
       margin: 1.5em 0;
       display: block;
     }
+    /* Article-specific figure styling */
+    .article-figure img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      display: block;
+    }
+    .article-figcaption {
+      font-size: 0.95em;
+      color: #666;
+      margin-top: 0.5em;
+      text-align: center;
+    }
+    .article-figcaption a {
+      color: #0a58ca;
+      text-decoration: none;
+      margin-left: 0.5em;
+      font-weight: 500;
+    }
+    .article-figcaption a:hover {
+      text-decoration: underline;
+    }
     ul, ol {
       margin: 1.2em 0 1.2em 2em;
       font-size: 1.1em;
@@ -155,40 +178,68 @@
 
     <div class="container-md" id="content"></div>
   <script>
-    // JSON structure for the article content
-    const articleContent = {
-      title: "Medium Style Article Title",
-      meta: "By Author Name · Sep 19, 2025",
-      sections: [
-        { type: "p", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi vel consectetur euismod, nisl nisi consectetur nisi, euismod euismod nisi nisi euismod." },
-        { type: "h2", text: "Section Heading" },
-        { type: "p", text: "This is a paragraph with <a href='#'>a link</a> and some <code>inline code</code>." },
-        { type: "blockquote", text: "This is a blockquote, styled like Medium." },
-        { type: "pre", text: "// Example code block\nfunction helloWorld() {\n  console.log(\"Hello, world!\");\n}" },
-        { type: "ul", items: ["First point", "Second point"] },
-        { type: "hr" },
-        { type: "p", text: "End of the article." }
-      ]
-    };
+    // Rendered article body (sourced from raw.txt)
+    const articleHTML = `
+      <h1>Bridging ServiceNow and AWS: A Modern Approach to Cloud Provisioning and CI Discovery</h1>
+      <p>In today's hybrid IT landscape, organizations need seamless integration between their service management platforms and cloud infrastructure. The architecture pattern I'm sharing today illustrates a sophisticated yet elegant solution that connects ServiceNow's service catalog capabilities with AWS cloud provisioning, while maintaining comprehensive configuration management through automated discovery.</p>
 
-    // Render function for the JSON content
-    function renderContent(content) {
-      let html = `<h1>${content.title}</h1>`;
-      html += `<p class="meta"><em>${content.meta}</em></p>`;
-      content.sections.forEach(section => {
-        if (section.type === "p") html += `<p>${section.text}</p>`;
-        else if (section.type === "h2") html += `<h2>${section.text}</h2>`;
-        else if (section.type === "h3") html += `<h3>${section.text}</h3>`;
-        else if (section.type === "blockquote") html += `<blockquote>${section.text}</blockquote>`;
-        else if (section.type === "pre") html += `<pre><code>${section.text}</code></pre>`;
-        else if (section.type === "ul") html += `<ul>${section.items.map(item => `<li>${item}</li>`).join('')}</ul>`;
-        else if (section.type === "ol") html += `<ol>${section.items.map(item => `<li>${item}</li>`).join('')}</ol>`;
-        else if (section.type === "hr") html += `<hr>`;
-      });
-      document.getElementById('content').innerHTML = html;
-    }
+      <h2>The Challenge</h2>
+      <p>Enterprise IT teams face a common dilemma: how do you empower users to provision cloud resources through familiar self-service portals while maintaining governance, tracking, and operational visibility? The answer lies in orchestrating multiple systems into a cohesive workflow that spans service management, infrastructure-as-code, version control, and configuration management databases.</p>
 
-    renderContent(articleContent);
+      <h2>The Architecture Flow</h2>
+      <p>Let me walk you through this architecture, which elegantly solves this challenge through ten distinct steps.</p>
+
+      <figure class="article-figure" aria-labelledby="fig-arch-caption">
+        <img src="diagram.png" alt="Architecture diagram showing ServiceNow, Terraform Cloud, GitHub, AWS and CMDB integration" loading="lazy">
+  <figcaption id="fig-arch-caption" class="article-figcaption">Architecture diagram: ServiceNow ↔ Terraform Cloud ↔ GitHub ↔ AWS (AWS Config & SNS) → CMDB. <a href="diagram.png" target="_blank" rel="noopener">View full-size</a></figcaption>
+      </figure>
+
+      <h3>The ServiceNow Layer</h3>
+      <p>Everything begins with the user experience. In ServiceNow, users interact with a Playbook/Cloud Catalog that presents available cloud services in business-friendly terms. No need to understand AWS syntax or Terraform configurations—just select what you need from the catalog.</p>
+      <p>Behind this user-facing interface sits the Flow Designer, ServiceNow's low-code automation engine. This is where the magic of orchestration happens, coordinating actions across multiple systems without writing extensive code. The Flow Designer acts as the conductor of this symphony, ensuring each component plays its part at the right time.</p>
+
+      <h3>Infrastructure as Code with Terraform</h3>
+      <p>When a user submits a request, the workflow triggers Terraform Cloud to execute infrastructure provisioning. Terraform Cloud serves as the execution environment for infrastructure-as-code, translating service catalog requests into actual AWS resources. This separation of concerns is crucial—ServiceNow handles the service management aspects, while Terraform handles the infrastructure provisioning.</p>
+      <p>But where does Terraform get its configuration? This is where modern DevOps practices shine.</p>
+
+      <h3>Version Control and GitOps</h3>
+      <p>The Terraform configurations are stored in GitHub, providing version control, audit trails, and collaborative development capabilities. This GitOps approach means infrastructure definitions are treated like application code—reviewed, versioned, and deployable through standard development workflows.</p>
+      <p>The architecture also shows a feedback loop where JSON configuration files feed back into GitHub, ensuring that any modifications or updates to infrastructure patterns are captured and versioned. This creates a closed loop where infrastructure definitions remain synchronized with deployed resources.</p>
+
+      <h3>The AWS Foundation</h3>
+      <p>At the infrastructure layer, AWS Config establishes the compliance and governance baseline. It continuously monitors resource configurations, ensuring they meet organizational standards and security policies.</p>
+      <p>Following the provisioning, Amazon SNS (Simple Notification Service) provides event-driven notifications. When resources are created, modified, or deleted, SNS publishes these events to interested subscribers. This pub-sub pattern decouples the notification system from the downstream consumers.</p>
+
+      <h3>HTTP Notifications and API Integration</h3>
+      <p>The SNS notifications trigger HTTP notifications, which are then consumed by a REST API. This API layer serves as the bridge back to ServiceNow, translating AWS events into formats the service management platform can consume and process.</p>
+
+      <h3>Closing the Loop with CMDB</h3>
+      <p>Finally, everything flows into ServiceNow's Configuration Management Database (CMDB). This is where the discovery magic happens—as AWS resources are provisioned, their configurations are automatically discovered and recorded in the CMDB. This creates a single source of truth for all IT assets, whether they're on-premises servers or cloud-based resources.</p>
+      <p>The CMDB doesn't just store static information. It maintains relationships between configuration items, tracks changes over time, and provides the foundation for incident management, change management, and other ITIL processes.</p>
+
+      <h2>Why This Architecture Matters</h2>
+      <p>This pattern demonstrates several best practices in modern IT operations:</p>
+      <ul>
+        <li>Separation of concerns: Each component has a specific responsibility, making the system more maintainable and resilient.</li>
+        <li>Automation: Manual provisioning steps are eliminated, reducing errors and accelerating delivery.</li>
+        <li>Auditability: Every action is tracked, from the initial user request through GitHub commits to CMDB updates.</li>
+        <li>Governance: ServiceNow's catalog enforces approval workflows and policies, while AWS Config ensures compliance at the infrastructure layer.</li>
+        <li>Bi-directional integration: Information flows from ServiceNow to AWS during provisioning and back to ServiceNow during discovery, maintaining consistency across platforms.</li>
+      </ul>
+
+      <h2>Real-World Implications</h2>
+      <p>Organizations implementing this architecture gain significant advantages. Development teams can self-service infrastructure without waiting for manual provisioning. Operations teams maintain visibility and control through the CMDB. Security teams can audit every change through version control and compliance monitoring.</p>
+      <p>The integration between service management and cloud operations creates what's often called a "closed-loop" system—requests generate resources, resources generate configuration data, and that data feeds back into the management platform that initiated the request.</p>
+
+      <h2>Looking Forward</h2>
+      <p>As organizations continue their cloud journey, architectures like this become essential infrastructure. The pattern is extensible—you could add additional cloud providers, incorporate policy-as-code with tools like Open Policy Agent, or enhance the notification system with more sophisticated event processing.</p>
+      <p>The key insight is that modern IT operations isn't about choosing between service management platforms or cloud-native tools. It's about orchestrating them together into workflows that serve both technical teams and business users effectively.</p>
+      <p>This architecture represents not just technical integration, but the convergence of ITIL service management practices with DevOps and cloud-native methodologies. That convergence is where the future of enterprise IT operations lives.</p>
+
+      
+    `;
+
+    document.getElementById('content').innerHTML = articleHTML;
   </script>
 
   </main><!-- End #main -->
