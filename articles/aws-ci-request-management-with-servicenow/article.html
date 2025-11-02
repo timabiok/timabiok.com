@@ -98,21 +98,6 @@
       box-shadow: 0 6px 24px rgba(0,0,0,0.08);
       display: block;
     }
-    .article-figcaption {
-      font-size: 0.95em;
-      color: #666;
-      margin-top: 0.5em;
-      text-align: center;
-    }
-    .article-figcaption a {
-      color: #0a58ca;
-      text-decoration: none;
-      margin-left: 0.5em;
-      font-weight: 500;
-    }
-    .article-figcaption a:hover {
-      text-decoration: underline;
-    }
     ul, ol {
       margin: 1.2em 0 1.2em 2em;
       font-size: 1.1em;
@@ -189,34 +174,47 @@
       <h2>The Architecture Flow</h2>
       <p>Let me walk you through this architecture, which elegantly solves this challenge through ten distinct steps.</p>
 
-      <figure class="article-figure" aria-labelledby="fig-arch-caption">
+      <figure class="article-figure">
         <img src="diagram.png" alt="Architecture diagram showing ServiceNow, Terraform Cloud, GitHub, AWS and CMDB integration" loading="lazy">
-  <figcaption id="fig-arch-caption" class="article-figcaption">Architecture diagram: ServiceNow ↔ Terraform Cloud ↔ GitHub ↔ AWS (AWS Config & SNS) → CMDB. <a href="diagram.png" target="_blank" rel="noopener">View full-size</a></figcaption>
       </figure>
 
       <h3>The ServiceNow Layer</h3>
-      <p>Everything begins with the user experience. In ServiceNow, users interact with a Playbook/Cloud Catalog that presents available cloud services in business-friendly terms. No need to understand AWS syntax or Terraform configurations—just select what you need from the catalog.</p>
-      <p>Behind this user-facing interface sits the Flow Designer, ServiceNow's low-code automation engine. This is where the magic of orchestration happens, coordinating actions across multiple systems without writing extensive code. The Flow Designer acts as the conductor of this symphony, ensuring each component plays its part at the right time.</p>
-
+      <p>Everything begins with the user experience. In ServiceNow, users interact with a Playbook or a Cloud Catalog that presents available cloud services similar to backstage. A user does not need to know AWS CloudFormation or Terraform but to select the desired catalog from the catalog and fill out a request.</p>
+      <figure class="article-figure">
+        <img src="service-portal.png" alt="servicenow service portal with catalog items" loading="lazy">
+      </figure>
+      <p>Behind this user-facing interface sits the Flow Designer, ServiceNow's low-code automation engine. This is where the magic of orchestration happens, coordinating actions across multiple systems without the need for extensive code. The Flow Designer acts as the conductor of this symphony, ensuring each component plays its part at the right time.</p>
+      
       <h3>Infrastructure as Code with Terraform</h3>
-      <p>When a user submits a request, the workflow triggers Terraform Cloud to execute infrastructure provisioning. Terraform Cloud serves as the execution environment for infrastructure-as-code, translating service catalog requests into actual AWS resources. This separation of concerns is crucial—ServiceNow handles the service management aspects, while Terraform handles the infrastructure provisioning.</p>
+      <p>When a user submits a request, the workflow triggers Terraform Cloud to execute infrastructure provisioning. Terraform Cloud serves as the execution environment for infrastructure-as-code, translating service catalog requests into actual AWS resources. This separation of concerns is crucial. ServiceNow handles the service management aspects, while Terraform handles the infrastructure provisioning.</p>
+      <figure class="article-figure">
+        <img src="gitops.png" alt="" loading="lazy">
+      </figure>
       <p>But where does Terraform get its configuration? This is where modern DevOps practices shine.</p>
-
+      <figure class="article-figure">
+        <img src="tfc.png" alt="" loading="lazy">
+      </figure>
       <h3>Version Control and GitOps</h3>
       <p>The Terraform configurations are stored in GitHub, providing version control, audit trails, and collaborative development capabilities. This GitOps approach means infrastructure definitions are treated like application code—reviewed, versioned, and deployable through standard development workflows.</p>
       <p>The architecture also shows a feedback loop where JSON configuration files feed back into GitHub, ensuring that any modifications or updates to infrastructure patterns are captured and versioned. This creates a closed loop where infrastructure definitions remain synchronized with deployed resources.</p>
-
+      <figure class="article-figure">
+        <img src="iac.png" alt="" loading="lazy">
+      </figure>
       <h3>The AWS Foundation</h3>
       <p>At the infrastructure layer, AWS Config establishes the compliance and governance baseline. It continuously monitors resource configurations, ensuring they meet organizational standards and security policies.</p>
       <p>Following the provisioning, Amazon SNS (Simple Notification Service) provides event-driven notifications. When resources are created, modified, or deleted, SNS publishes these events to interested subscribers. This pub-sub pattern decouples the notification system from the downstream consumers.</p>
-
+      <figure class="article-figure">
+        <img src="aws-config.png" alt="" loading="lazy">
+      </figure>
       <h3>HTTP Notifications and API Integration</h3>
       <p>The SNS notifications trigger HTTP notifications, which are then consumed by a REST API. This API layer serves as the bridge back to ServiceNow, translating AWS events into formats the service management platform can consume and process.</p>
 
       <h3>Closing the Loop with CMDB</h3>
       <p>Finally, everything flows into ServiceNow's Configuration Management Database (CMDB). This is where the discovery magic happens—as AWS resources are provisioned, their configurations are automatically discovered and recorded in the CMDB. This creates a single source of truth for all IT assets, whether they're on-premises servers or cloud-based resources.</p>
       <p>The CMDB doesn't just store static information. It maintains relationships between configuration items, tracks changes over time, and provides the foundation for incident management, change management, and other ITIL processes.</p>
-
+      <figure class="article-figure">
+        <img src="cmdb.png" alt="" loading="lazy">
+      </figure>
       <h2>Why This Architecture Matters</h2>
       <p>This pattern demonstrates several best practices in modern IT operations:</p>
       <ul>
